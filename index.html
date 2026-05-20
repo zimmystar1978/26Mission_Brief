@@ -4,63 +4,77 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>26 Mission Brief</title>
+<title>Mission Briefing</title>
 
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-body{
-    background:black;
-    overflow-x:hidden;
-    font-family:sans-serif;
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:black;
+  font-family:sans-serif;
 }
 
 .container{
-    display:flex;
-    overflow-x:auto;
-   
-    scroll-snap-type:x mandatory;
-   
-    width:100vw;
-    height:100vh;
+  display:flex;
+  width:100%;
+  height:100%;
+  overflow-x:auto;
 
-    -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
 
-    scroll-behavior:smooth;}
-
-.slide{
-    min-width:100vw;
-    height:100vh;
-
-    scroll-snap-align:center;
-    scroll-snap-stop:always;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    padding:20px;}
-
-.slide img{
-    width:90%;
-    max-width:30px;
-
-    border-radius:20px;
-
-    box-shadow:0 0 30px rgba(255,255,255,0.15);
-
-    pointer-events:none;
+  -webkit-overflow-scrolling:touch;
 }
 
-audio{
-    width:90%;
-    margin-top:20px;
+.container::-webkit-scrollbar{
+  display:none;
+}
+
+.slide{
+  min-width:100vw;
+  height:100vh;
+
+  scroll-snap-align:center;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  position:relative;
+  background:black;
+}
+
+video{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:black;
+}
+
+.swipe-hint{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+
+  color:white;
+  font-size:14px;
+
+  background:rgba(0,0,0,0.5);
+
+  padding:10px 16px;
+  border-radius:30px;
+
+  opacity:0;
+  transition:0.3s;
 }
 
 </style>
@@ -70,57 +84,80 @@ audio{
 
 <div class="container">
 
-    <div class="slide">
-        <img src="26Mission_Brief01.jpg">
-        <audio controls>
-            <source src="26Mission_Briefing_1.mp3" type="audio/mpeg">
-        </audio>
-    </div>
+  <!-- Briefing card 1 -->
+  <section class="slide">
+    <video controls playsinline preload="metadata">
+      <source src="26Mission_01.mp4" type="video/mp4">
+    </video>
 
-    <div class="slide">
-        <img src="26Mission_Brief02.jpg">
-        <audio controls>
-            <source src="26Mission_Briefing_2.mp3" type="audio/mpeg">
-        </audio>
+    <div class="swipe-hint">
+      ← 스와이프해서 다음 카드 →
     </div>
+  </section>
 
-    <div class="slide">
-        <img src="26Mission_Brief03.jpg">
-        <audio controls>
-            <source src="26Mission_Briefing_3.mp3" type="audio/mpeg">
-        </audio>
-    </div>
+  <!-- Briefing card 2 -->
+  <section class="slide">
+    <video controls playsinline preload="metadata">
+      <source src="26Mission_02.mp4" type="video/mp4">
+    </video>
 
-    <div class="slide">
-        <img src="26Mission_Brief04.jpg">
-        <audio controls>
-            <source src="26Mission_Briefing_4.mp3" type="audio/mpeg">
-        </audio>
+    <div class="swipe-hint">
+      ← 스와이프해서 다음 카드 →
     </div>
+  </section>
 
-    <div class="slide">
-        <img src="26Mission_Brief05.jpg">
-        <audio controls>
-            <source src="26Mission_Briefing_5.mp3" type="audio/mpeg">
-        </audio>
+  <!-- Briefing card 3 -->
+  <section class="slide">
+    <video controls playsinline preload="metadata">
+      <source src="26Mission_03.mp4" type="video/mp4">
+    </video>
+
+    <div class="swipe-hint">
+      ← 스와이프해서 다음 카드 →
     </div>
+  </section>
+
+  <!-- Briefing card 4 -->
+  <section class="slide">
+    <video controls playsinline preload="metadata">
+      <source src="26Mission_04.mp4" type="video/mp4">
+    </video>
+
+    <div class="swipe-hint">
+      ← 스와이프해서 다음 카드 →
+    </div>
+  </section>
+
+  <!-- Briefing card 5 -->
+  <section class="slide">
+    <video controls playsinline preload="metadata">
+      <source src="26Mission_05.mp4" type="video/mp4">
+    </video>
+
+    <div class="swipe-hint">
+      마지막 카드입니다
+    </div>
+  </section>
 
 </div>
 
 <script>
 
-const audios = document.querySelectorAll("audio");
+const videos = document.querySelectorAll("video");
 
-audios.forEach(audio => {
-    audio.addEventListener("play", () => {
+videos.forEach(video => {
 
-        audios.forEach(otherAudio => {
-            if(otherAudio !== audio){
-                otherAudio.pause();
-            }
-        });
+  const hint =
+    video.parentElement.querySelector(".swipe-hint");
 
-    });
+  video.addEventListener("ended", () => {
+    hint.style.opacity = "1";
+  });
+
+  video.addEventListener("play", () => {
+    hint.style.opacity = "0";
+  });
+
 });
 
 </script>
