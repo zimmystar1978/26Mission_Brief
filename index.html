@@ -32,6 +32,8 @@ html,body{
   scroll-behavior:smooth;
 
   -webkit-overflow-scrolling:touch;
+
+  overscroll-behavior-x:contain;
 }
 
 .container::-webkit-scrollbar{
@@ -40,9 +42,13 @@ html,body{
 
 .slide{
   min-width:100vw;
+  width:100vw;
   height:100vh;
 
-  scroll-snap-align:center;
+  flex-shrink:0;
+
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
 
   display:flex;
   justify-content:center;
@@ -91,7 +97,7 @@ video{
     </video>
 
     <div class="swipe-hint">
-      ← 스와이프해서 다음 카드 →
+      ← 밀어서 다음 카드 →
     </div>
   </section>
 
@@ -102,7 +108,7 @@ video{
     </video>
 
     <div class="swipe-hint">
-      ← 스와이프해서 다음 카드 →
+      ← 밀어서 다음 카드 →
     </div>
   </section>
 
@@ -113,7 +119,7 @@ video{
     </video>
 
     <div class="swipe-hint">
-      ← 스와이프해서 다음 카드 →
+      ← 밀어서 다음 카드 →
     </div>
   </section>
 
@@ -124,7 +130,7 @@ video{
     </video>
 
     <div class="swipe-hint">
-      ← 스와이프해서 다음 카드 →
+      ← 밀어서 다음 카드 →
     </div>
   </section>
 
