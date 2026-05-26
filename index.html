@@ -53,6 +53,7 @@ html,body{
   scroll-snap-stop:always;
 
   display:flex;
+  flex-direction: column;
   justify-content:center;
   align-items:center;
 
@@ -82,12 +83,14 @@ video{
 
 .swipe-hint{
   position:absolute;
-
   top:65%;
-  left:50%;
 
-  transform:translate(-50%, -50%);
-
+  left: 0;
+  right: 0;
+  margin: 0 auto; 
+  
+  width: max-content;
+  
   color:white;
 
   font-size:20px;
