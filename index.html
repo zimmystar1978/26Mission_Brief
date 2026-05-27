@@ -65,15 +65,12 @@ html,body{
 video{
   max-width:100%;
   max-height:100%;
-
-  width:auto;
-  height:auto;
-
-  object-fit:contain;
-
-  display:block;
-
-  margin: auto; 
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 !important; 
+  padding: 0 !important;
 }
 
 .swipe-hint{
@@ -115,8 +112,8 @@ video{
 
 /* 💡 손가락 아이콘 스타일 및 좌우로 움직이는 애니메이션 설정 */
 .swipe-icon {
-  font-size: 28px;
-  color: #ffffff;
+  width: 40px; /* 💡 말해준 크기 반영해서 축소되게 CSS로 고정! */
+  height: auto;
   animation: swipeMove 1.5s ease-in-out infinite;
 }
 
