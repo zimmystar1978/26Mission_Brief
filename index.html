@@ -17,25 +17,22 @@
 html,body{
   width:100%;
   height:100%;
+  margin:0;
   overflow:hidden;
   background:black;
-  font-family:sans-serif;
 }
 
 .container{
   display:flex;
-  width:100%;
-  height:100%;
+  width:100vh;
+  height:100dvh;
+  
   overflow-x:auto;
+  overflow-y:hidden;
 
   scroll-snap-type:x mandatory;
-  scroll-behavior:smooth;
-
   -webkit-overflow-scrolling:touch;
 
-  overscroll-behavior-x:contain;
-
-  scroll-padding-left:0;
 }
 
 .container::-webkit-scrollbar{
@@ -43,42 +40,32 @@ html,body{
 }
 
 .slide{
-  min-width:100vw;
+  flex:0 0 100vw;
+
   width:100vw;
-  height:100vh;
-
-  flex-shrink:0;
-
-  scroll-snap-align:center;
-  scroll-snap-stop:always;
+  height:100dvh;
 
   display:flex;
-  flex-direction: column;
   justify-content:center;
   align-items:center;
-
-  position:relative;
 
   background:black;
 
   overflow:hidden;
+
+  position:relative;
 }
 
 video{
-  width:100%;
-  height:100%;
+  max-width:100%;
+  max-height:100%;
+
+  width:auto;
+  height:auto;
 
   object-fit:contain;
 
-  background:black;
-
   display:block;
-
-  flex-shrink:0;
-
-  transform:translateZ(0);
-
-  margin: auto;
 }
 
 .swipe-hint{
