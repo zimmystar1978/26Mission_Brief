@@ -6,6 +6,8 @@
 
 <title>Mission Briefing</title>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 <style>
 *{
   margin:0;
@@ -57,7 +59,6 @@ html,body{
   scroll-snap-align: start; 
   scroll-snap-stop: always;
 
-  /* 💡 추가된 코드: 자식 요소들이 항상 중앙에 오도록 명시 */
   place-items: center; 
 }
 
@@ -72,13 +73,12 @@ video{
 
   display:block;
 
-  /* 💡 수정된 코드: 비디오 자체의 여백을 자동으로 설정하여 중앙 정렬 보장 */
   margin: auto; 
 }
 
 .swipe-hint{
   position:absolute;
-  top:65%;
+  top:62%; /* 💡 손가락 공간 확보를 위해 위로 살짝 올렸어 */
 
   left: 0;
   right: 0;
@@ -88,10 +88,10 @@ video{
   
   color:white;
 
-  font-size:20px;
+  font-size:18px; /* 💡 아이콘이랑 조화를 위해 폰트 크기 살짝 조절 */
   font-weight:bold;
 
-  background:rgba(0,0,0,0.6);
+  background:rgba(0,0,0,0.7);
 
   padding:14px 22px;
 
@@ -100,17 +100,37 @@ video{
   opacity:0;
   transition:0.3s;
 
-  text-align:center;
+  /* 💡 글자와 손가락 아이콘을 세로로 정렬하기 위한 코드 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 
   pointer-events:none;
 
   white-space:nowrap;
+
+  z-index: 998; 
+}
+
+/* 💡 손가락 아이콘 스타일 및 좌우로 움직이는 애니메이션 설정 */
+.swipe-icon {
+  font-size: 28px;
+  color: #ffffff;
+  animation: swipeMove 1.5s ease-in-out infinite;
+}
+
+/* 💡 좌우로 슥슥 움직이는 모션 효과 */
+@keyframes swipeMove {
+  0% { transform: translateX(10px); }
+  50% { transform: translateX(-10px); }
+  100% { transform: translateX(10px); }
 }
   
 .pagination{
   position:fixed;
 
-  top: 76%;
+  top: 78%; /* 💡 손가락 때문에 도트도 아래로 살짝 내렸어 */
   left:50%;
 
   transform:translateX(-50%);
@@ -118,7 +138,7 @@ video{
   display:flex;
   gap:10px;
 
-  z-index:999;
+  z-index:999; 
 }
 
 .dot{
@@ -152,7 +172,8 @@ video{
     </video>
 
     <div class="swipe-hint">
-      ← NEXT BRIEFING →
+      <span>SWIPE TO NEXT BRIEFING</span>
+      <span class="material-symbols-outlined swipe-icon">swipe_left_alt</span>
     </div>
   </section>
 
@@ -162,7 +183,8 @@ video{
     </video>
 
     <div class="swipe-hint">
-      ← NEXT BRIEFING →
+      <span>SWIPE TO NEXT BRIEFING</span>
+      <span class="material-symbols-outlined swipe-icon">swipe_left_alt</span>
     </div>
   </section>
 
@@ -172,7 +194,8 @@ video{
     </video>
 
     <div class="swipe-hint">
-      ← NEXT BRIEFING →
+      <span>SWIPE TO NEXT BRIEFING</span>
+      <span class="material-symbols-outlined swipe-icon">swipe_left_alt</span>
     </div>
   </section>
 
@@ -182,7 +205,8 @@ video{
     </video>
 
     <div class="swipe-hint">
-      ← NEXT BRIEFING →
+      <span>SWIPE TO NEXT BRIEFING</span>
+      <span class="material-symbols-outlined swipe-icon">swipe_left_alt</span>
     </div>
   </section>
 
@@ -192,7 +216,8 @@ video{
     </video>
 
     <div class="swipe-hint">
-      END OF BRIEFING
+      <span>END OF BRIEFING</span>
+      <span class="material-symbols-outlined" style="font-size:28px;">task_alt</span>
     </div>
   </section>
 
@@ -236,8 +261,10 @@ function handleScroll() {
   });
 
   videos.forEach((video, index) => {
-    if (index !== currentIndex && !video.paused) {
-      video.pause();
+    if (index !== currentIndex) {
+      if (!video.paused) video.pause();
+      const hint = video.parentElement.querySelector(".swipe-hint");
+      hint.style.opacity = "0";
     }
   });
 }
