@@ -54,9 +54,11 @@ html,body{
 
   position:relative;
 
-  /* 💡 여기에 스냅 정렬 기준(start)을 추가했어! */
   scroll-snap-align: start; 
   scroll-snap-stop: always;
+
+  /* 💡 추가된 코드: 자식 요소들이 항상 중앙에 오도록 명시 */
+  place-items: center; 
 }
 
 video{
@@ -69,6 +71,9 @@ video{
   object-fit:contain;
 
   display:block;
+
+  /* 💡 수정된 코드: 비디오 자체의 여백을 자동으로 설정하여 중앙 정렬 보장 */
+  margin: auto; 
 }
 
 .swipe-hint{
@@ -206,7 +211,6 @@ const container = document.querySelector(".container");
 const videos = document.querySelectorAll("video");
 const dots = document.querySelectorAll(".dot");
 
-// 1. 영상이 끝나면 힌트 보여주기
 videos.forEach(video => {
   const hint = video.parentElement.querySelector(".swipe-hint");
 
@@ -219,12 +223,10 @@ videos.forEach(video => {
   });
 });
 
-// 2. 스크롤할 때 도트 변경 + 지나간 영상 자동 일시정지 기능 추가!
 function handleScroll() {
   const slideWidth = container.clientWidth;
   const currentIndex = Math.round(container.scrollLeft / slideWidth);
 
-  // 도트(인디케이터) 업데이트
   dots.forEach((dot, index) => {
     if (index === currentIndex) {
       dot.classList.add("active");
@@ -233,7 +235,6 @@ function handleScroll() {
     }
   });
 
-  // 현재 안 보이는 슬라이드의 영상은 일시정지
   videos.forEach((video, index) => {
     if (index !== currentIndex && !video.paused) {
       video.pause();
@@ -241,7 +242,6 @@ function handleScroll() {
   });
 }
 
-// 스크롤 이벤트 연결
 container.addEventListener("scroll", handleScroll, { passive: true });
 </script>
 
