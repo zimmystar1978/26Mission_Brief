@@ -98,12 +98,44 @@ video{
 
   white-space:nowrap;
 }
+  
+.pagination{
+  position:fixed;
 
+  bottom:28px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  display:flex;
+  gap:10px;
+
+  z-index:999;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.3);
+
+  transition:0.3s;
+}
+
+.dot.active{
+  background:white;
+
+  transform:scale(1.35);
+
+  box-shadow:0 0 10px rgba(255,255,255,0.9);
+}
 </style>
 </head>
 
 <body>
-
+ 
 <div class="container">
 
   <!-- Briefing card 1 -->
@@ -163,6 +195,14 @@ video{
 
 </div>
 
+<div class="pagination">
+  <span class="dot active"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+</div> 
+
 <script>
 
 const videos = document.querySelectorAll("video");
@@ -182,6 +222,34 @@ videos.forEach(video => {
 
 });
 
+const container =
+  document.querySelector(".container");
+
+const dots =
+  document.querySelectorAll(".dot");
+
+function updateDots(){
+
+  const slideWidth = window.innerWidth;
+
+  const index =
+    Math.round(container.scrollLeft / slideWidth);
+
+  dots.forEach(dot=>{
+    dot.classList.remove("active");
+  });
+
+  if(dots[index]){
+    dots[index].classList.add("active");
+  }
+}
+
+container.addEventListener(
+  "scroll",
+  updateDots
+);
+
+</script>
 </script>
 
 </body>
