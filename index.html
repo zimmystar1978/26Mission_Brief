@@ -7,7 +7,6 @@
 <title>Mission Briefing</title>
 
 <style>
-
 *{
   margin:0;
   padding:0;
@@ -32,7 +31,6 @@ html,body{
 
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
-
 }
 
 .container::-webkit-scrollbar{
@@ -54,6 +52,9 @@ html,body{
   overflow:hidden;
 
   position:relative;
+
+  /* 💡 여기에 스냅 정렬 기준(start)을 추가했어! */
+  scroll-snap-align: start; 
 }
 
 video{
@@ -102,7 +103,7 @@ video{
 .pagination{
   position:fixed;
 
-  bottom:28px;
+  top: 76%;
   left:50%;
 
   transform:translateX(-50%);
@@ -138,7 +139,6 @@ video{
  
 <div class="container">
 
-  <!-- Briefing card 1 -->
   <section class="slide">
     <video controls playsinline preload="metadata">
       <source src="Mission_Brief_01_0526.mp4" type="video/mp4">
@@ -149,7 +149,6 @@ video{
     </div>
   </section>
 
-  <!-- Briefing card 2 -->
   <section class="slide">
     <video controls playsinline preload="metadata">
       <source src="Mission_Brief_02_0526.mp4" type="video/mp4">
@@ -160,7 +159,6 @@ video{
     </div>
   </section>
 
-  <!-- Briefing card 3 -->
   <section class="slide">
     <video controls playsinline preload="metadata">
       <source src="Mission_Brief_03_0526.mp4" type="video/mp4">
@@ -171,7 +169,6 @@ video{
     </div>
   </section>
 
-  <!-- Briefing card 4 -->
   <section class="slide">
     <video controls playsinline preload="metadata">
       <source src="Mission_Brief_04_0526.mp4" type="video/mp4">
@@ -182,7 +179,6 @@ video{
     </div>
   </section>
 
-  <!-- Briefing card 5 -->
   <section class="slide">
     <video controls playsinline preload="metadata">
       <source src="Mission_Brief_05_0526.mp4" type="video/mp4">
@@ -204,13 +200,13 @@ video{
 </div> 
 
 <script>
-
+const container = document.querySelector(".container");
 const videos = document.querySelectorAll("video");
+const dots = document.querySelectorAll(".dot");
 
+// 1. 영상이 끝나면 힌트 보여주기
 videos.forEach(video => {
-
-  const hint =
-    video.parentElement.querySelector(".swipe-hint");
+  const hint = video.parentElement.querySelector(".swipe-hint");
 
   video.addEventListener("ended", () => {
     hint.style.opacity = "1";
@@ -219,36 +215,33 @@ videos.forEach(video => {
   video.addEventListener("play", () => {
     hint.style.opacity = "0";
   });
-
 });
 
-const container =
-  document.querySelector(".container");
+// 2. 스크롤할 때 도트 변경 + 지나간 영상 자동 일시정지 기능 추가!
+function handleScroll() {
+  const slideWidth = container.clientWidth;
+  const currentIndex = Math.round(container.scrollLeft / slideWidth);
 
-const dots =
-  document.querySelectorAll(".dot");
-
-function updateDots(){
-
-  const slideWidth = window.innerWidth;
-
-  const index =
-    Math.round(container.scrollLeft / slideWidth);
-
-  dots.forEach(dot=>{
-    dot.classList.remove("active");
+  // 도트(인디케이터) 업데이트
+  dots.forEach((dot, index) => {
+    if (index === currentIndex) {
+      dot.classList.add("active");
+    } else {
+      dot.classList.remove("active");
+    }
   });
 
-  if(dots[index]){
-    dots[index].classList.add("active");
-  }
+  // 현재 안 보이는 슬라이드의 영상은 일시정지
+  videos.forEach((video, index) => {
+    if (index !== currentIndex && !video.paused) {
+      video.pause();
+    }
+  });
 }
 
-container.addEventListener(
-  "scroll",
-  updateDots
-);
-
+// 스크롤 이벤트 연결
+container.addEventListener("scroll", handleScroll, { passive: true });
 </script>
+
 </body>
 </html>
