@@ -16,23 +16,24 @@
 }
 
 html,body{
-  width:100%;
-  height:100%;
-  margin:0;
-  overflow:hidden;
-  background:black;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 💡 본문 자체가 절대 스크롤 안 생기게 원천 차단 */
+  background: black;
 }
 
 .container{
-  display:flex;
-  width:100vw;
-  height:100dvh;
+  display: flex;
+  width: 100%; /* 💡 100vw 대신 100%를 쓰면 스크롤바 때문에 화면 깨지는 걸 막아줘! */
+  height: 100dvh;
   
-  overflow-x:auto;
-  overflow-y:hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
   scroll-snap-stop: always;
 }
 
@@ -41,34 +42,31 @@ html,body{
 }
 
 .slide{
-  flex:0 0 100vw;
+  flex: 0 0 100%; /* 💡 이것도 100vw 대신 100%로 안전하게 매칭 */
+  width: 100%;
+  height: 100dvh;
 
-  width:100vw;
-  height:100dvh;
-
-  display:flex !important;
+  display: flex !important;
   justify-content: center !important;
   align-items: center !important;
   
-  background:black;
-
-  overflow:hidden;
-
-  position:relative;
-
+  background: black;
+  overflow: hidden; /* 💡 슬라이드 박스 밖으로 나가는 건 전부 잘라버리기 */
+  position: relative;
   scroll-snap-align: start; 
   scroll-snap-stop: always;
-
-  isolation:isolate;
+  isolation: isolate;
 }
 
 /* 💡 여기에 빠져있던 세미콜론(;)을 완벽하게 채워 넣었어! */
 video{
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* 💡 영상 비율을 유지하면서 화면 안에 쏙 들어가게 조절 */
   display: block;
-  background:black;
+  background: black;
 }
 
 .swipe-hint{
